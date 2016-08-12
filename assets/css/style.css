@@ -1,0 +1,65 @@
+@import url("reset.css");
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#fight-row {
+	width: 100%;
+	height: 60vh;
+	border: 2px solid black;
+	display: block;
+	position: relative;
+
+}
+
+#player-area {
+	border-right: 1px solid black;
+	width: 50%;
+	height: 60vh;
+	float: left;
+}
+
+#opponent-area {
+	width: 49%;
+	height: 60vh;
+	float: left;	
+}
+
+#waiting-row {
+	width: 100%;
+	height: 25vh;
+	border: 2px solid black;
+	display: block;
+	position: absolute;
+	top: 60vh;
+	align-content: center;
+
+}
+
+#button-row {
+	width: 100%;
+	height: 15vh;
+	border: 2px solid black;
+	display: block;
+	position: absolute;
+	top: 85vh;
+}
+
+.character {
+	display: block;
+	float: left;
+	border: 2px solid black;
+	width: 20%;
+	height: 20vh;
+	margin: 12px 10px 12px 10px;
+	margin-left: 25px;
+	text-align: center;
+}
+
+button {
+	width: 50%;
+	float: left;
+	height: 15vh;
+}
