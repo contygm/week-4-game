@@ -58,6 +58,11 @@ body {
 	text-align: center;
 }
 
+.character img {
+	height: 15vh;
+	width: auto;
+}
+
 button {
 	width: 50%;
 	float: left;
