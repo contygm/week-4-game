@@ -92,7 +92,7 @@ function checkHealth () {
 	if (player.health <= 0){
 		$("#message").html("You cost us the mission!");
 		$("#" + player.id + " .image").html("<img src='assets/images/dead1.png'>");
-		$("#" + enemy.id + " .image").html("<img src='assets/images/check.png'>");
+		$("#" + enemy.id + " .image").html("<img src='assets/images/check2.png'>");
 
 		$("#player-arena .arena-attack").empty();
 		$("#player-arena .arena-img").empty();
@@ -120,6 +120,7 @@ function checkHealth () {
 	//detect when win
 	if (deadEnemies === 3){
 		$("#message").html("Congratulations! You can keep your job.");
+		$("#" + player.id + " .image").html("<img src='assets/images/check2.png'>");
 	} 
 }
 
@@ -146,6 +147,7 @@ $('.character').click(function(event){
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 		$("#" + player.id + " .image").empty();
+		$("#" + player.id).css("background-color", "#71A235");
 
 	//select enemy
 	} else if (checkStatus(tempStatus)) {
@@ -161,6 +163,7 @@ $('.character').click(function(event){
 		$("#enemy-arena .arena-img").html("<img src='assets/images/" + enemy.name + ".png'>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 		$("#" + enemy.id + " .image").empty();
+		$("#" + enemy.id).css("background-color", "#FEB043");
 	} else {
 		$("#message").html("Finish it.");
 	};
