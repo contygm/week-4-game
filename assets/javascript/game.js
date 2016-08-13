@@ -34,19 +34,54 @@ var playerSelect = false;
 var enemySelect = false;
 var deadEnemies = 0;
 var player;
+var enemy;
+
+function checkPlayer(choice){
+	if (choice == "lana"){
+		player = lana;
+	} else if (choice == "archer"){
+		player = archer;
+	} else if (choice == "ray") {
+		player = ray;
+	} else {
+		player = pam;
+	};
+}
+
+function checkEnemy(choice){
+	if (choice == "lana"){
+		enemy = lana;
+	} else if (choice == "archer"){
+		enemy = archer;
+	} else if (choice == "ray") {
+		enemy = ray;
+	} else {
+		enemy = pam;
+	};
+}
 
 //select character
 
 $(document).ready(function() {
 
 $('.character').click(function(event){
-	
-	var player = this;
-	console.log(player.name);
+
+	var temp = this.attr('id');
 
 	if (playerSelect == false && enemySelect == false){
+		playerSelect = true;
+		console.log(playerSelect);
+
+		
+		checkPlayer(temp);
+		console.log(player);
 
 	} else if (playerSelect == true && enemySelect == false) {
+		enemySelect = true;
+		console.log(enemySelect);
+
+		checkEnemy(temp);
+		console.log(enemy);
 
 	} else {
 		$("#message").html("Sorry holmes, you have to see it through.");
