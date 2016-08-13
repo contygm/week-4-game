@@ -27,8 +27,8 @@ var ray = {
 
 var pam = {
 	name: "Pam",
-	health: 120, 
-	offense: 8,
+	health: 200, 
+	offense: 10,
 	defense: 15,
 	image: "assets/images/Pam.png",
 	id: "pam",
@@ -39,6 +39,7 @@ var enemySelect = false;
 var deadEnemies = 0;
 var player;
 var enemy;
+var attackPower;
 
 function checkPlayer(choice){
 	if (choice == "lana"){
@@ -71,33 +72,70 @@ function checkEnemy(choice){
 	};
 }
 
+function checkStatus(status){
+	if (status == "dead"){
+		return false;
+	}
+}
 
+function checkHealth () {
+	
+	// detect when loose
+	if (player.health <= 0){
+		$("message").html("You cost us the mission!");
+		setTimeout(reset, 3000);
+	
+	// detect when enemy dead
+	} else if (enemy.health <= 0){
+		$("message").html("You might just get a bonus.");
+		deadEnemies++;
+		
+		// change status to dead
+		$("#"+ enemy.id).attr('status','dead');
+		
+		//detect when win
+		if (deadEnemies == 3){
+			$("message").html("Congratulations, you can keep your job.");
+			setTimeout(reset, 3000);
+		} 
+
+		// choose new enemy
+		enemySelect = false;
+	}
+}
 
 $(document).ready(function() {
 
 $('.character').click(function(event){
 
-	var temp = $(this).attr('id');
+	var tempName = $(this).attr('id');
+	var tempStatus = $(this).attr('status')
 
 	//select character
 	if (playerSelect == false && enemySelect == false){
 		
-		checkPlayer(temp);
+		checkPlayer(tempName);
 		console.log(player);
+
+		attackPower = player.offense;
 
 		//move character to player area
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
+		// $("#lana img").attr("src",'assets/images/check.png');
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
 	//select enemy
+	} else if (!checkStatus(tempStatus)) {
+		$("message").html("Pick a new opponent.");
+
 	} else if (playerSelect == true && enemySelect == false) {
 		
-		checkEnemy(temp);
+		checkEnemy(tempName);
 		console.log(enemy);
 
 		//move enemy
-		$("#enemy-arena .arena-attack").html("<h3>Attack Power: " + enemy.offense +"</h3>");
+		$("#enemy-arena .arena-attack").html("<h3>Attack Power: " + enemy.defense +"</h3>");
 		$("#enemy-arena .arena-img").html("<img src='assets/images/" + enemy.name + ".png'>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 	} else {
@@ -106,38 +144,59 @@ $('.character').click(function(event){
 
 });
 
+
 //attack
-// * loose health for both
-// * player attack ability goes up
+$('#attack').click(function(){
+	if (!playerSelect == true && enemySelect == true){
+		$("#message").html("The dossier said pick a character and enemy before you start.");
+	} else {
 
-// detect when enemy dead
-// choose new enemy
+		// * loose health for both
+		enemy.health = enemy.health - player.offense;
+		player.health = player.health - enemy.defense;
 
-//detect when win
-// detect when loose
+		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
+		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
-$("#reset").on('click', function () {
-	$("#player-arena").empty();
-	$("#enemy-arena").empty();
-	playerSelect = false;
-	enemySelect = false;
-	deadEnemies = 0;
+		// * player attack ability goes up
+		player.offense = player.offense+attackPower;
 
-	$("#lana img").attr("src", lana.image);
-	$("#lana p").html("HP: 180");
+		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
+	}
 
-	$("#archer img").attr("src", archer.image);
-	$("#archer p").html("HP: 200");
-
-	$("#ray img").attr("src", ray.image);
-	$("#ray p").html("HP: 120");
-
-	$("#pam img").attr("src", pam.image);
-	$("#pam p").html("HP: 150");
+	checkHealth();
 });
 
 
+// reset
+$("#reset").on('click', function () {
+	playerSelect = false;
+	enemySelect = false;
+	deadEnemies = 0;
+	attackPower;
+	enemy;
+	player;
 
+	$("#player-arena").empty();
+	$("#enemy-arena").empty();
+	$("#message").empty();
+
+	$("#lana img").attr("src", lana.image);
+	$("#lana p").html("HP: 180");
+	$("#lana").attr('status','alive');
+
+	$("#archer img").attr("src", archer.image);
+	$("#archer p").html("HP: 200");
+	$("#archer").attr('status','alive');
+
+	$("#ray img").attr("src", ray.image);
+	$("#ray p").html("HP: 120");
+	$("#ray").attr('status','alive');
+
+	$("#pam img").attr("src", pam.image);
+	$("#pam p").html("HP: 150");
+	$("#pam").attr('status','alive');
+});
 
 
 
