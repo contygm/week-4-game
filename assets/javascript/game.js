@@ -9,8 +9,8 @@ var lana = {
 
 var archer = {
 	name: "Archer",
-	health: 120, 
-	offense: 30,
+	health: 135, 
+	offense: 31,
 	defense: 30,
 	image: "assets/images/Archer.png",
 	id: "archer",
@@ -28,7 +28,7 @@ var ray = {
 var pam = {
 	name: "Pam",
 	health: 180, 
-	offense: 15,
+	offense: 25,
 	defense: 15,
 	image: "assets/images/Pam.png",
 	id: "pam",
