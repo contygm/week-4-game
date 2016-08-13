@@ -100,21 +100,20 @@ function checkHealth () {
 		console.log(deadEnemies);
 		// change status to dead
 		$("#"+ enemy.id).attr('status','dead');
+		$("#" + enemy.id + " img").attr('src',"assets/images/dead.png");
 
-		$("#message").html("You might just get a bonus. Pick your next adversary.");
+		$("#message").html("Defeat another agent for a bonus.");
 			enemy;
 
 		enemySelect = false;
 		$("#enemy-arena .arena-attack").empty();
 		$("#enemy-arena .arena-img").empty();
 		$("#enemy-arena .arena-health").empty();
-
-
 	} 
 	
 	//detect when win
 	if (deadEnemies === 3){
-			$("#message").html("Congratulations, you can keep your job.");
+		$("#message").html("Congratulations! You can keep your job.");
 	} 
 }
 
@@ -140,6 +139,7 @@ $('.character').click(function(event){
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
+		$("#" + player.id + " img").attr('src',"assets/images/check.png");
 
 	//select enemy
 	} else if (checkStatus(tempStatus)) {
@@ -149,15 +149,13 @@ $('.character').click(function(event){
 	} else if (playerSelect === true && enemySelect === false) {
 		
 		checkEnemy(tempName);
-		$("#message").empty();
-		console.log(enemy);
 
 		//move enemy
 		$("#enemy-arena .arena-attack").html("<h3>Attack Power: " + enemy.defense +"</h3>");
 		$("#enemy-arena .arena-img").html("<img src='assets/images/" + enemy.name + ".png'>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 	} else {
-		$("#message").html("Sorry holmes, you have to see it through.");
+		$("#message").html("Finish it.");
 	};
 
 });
@@ -166,14 +164,15 @@ $('.character').click(function(event){
 //attack
 $('#attack').click(function(){
 	if (playerSelect === false || enemySelect === false){
-		$("#message").html("The dossier said pick a character and enemy before you start.");
+		$("#message").html("The dossier says pick a character and enemy.");
 	} else if (player.health > 0 && enemy.health > 0) {
 
 		// * loose health for both
 		enemy.health = enemy.health - player.offense;
 		player.health = player.health - enemy.defense;
 
-		$("#message").html("You attacked " + enemy.name + " for " + player.offense + " damage points. " +enemy.name+ " counterattacked for " + enemy.defense + " damage points.");
+		$("#message").html("<div id='player-message' style='color:lime;'> You: " + player.offense + " Damage Points </div>");  
+		$("#message").append("<div id='enemy-message' style='color:red;'> " + enemy.name + ": " + enemy.defense + " Damage Points </div>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
