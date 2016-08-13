@@ -4,6 +4,7 @@ var lana = {
 	offense: 6,
 	defense: 25,
 	image: "assets/images/Lana.png",
+	id: "lana",
 };
 
 var archer = {
@@ -11,7 +12,8 @@ var archer = {
 	health: 200, 
 	offense: 5,
 	defense: 30,
-	imagw: "assets/images/Archer.png",
+	image: "assets/images/Archer.png",
+	id: "archer",
 };
 
 var ray = {
@@ -20,6 +22,7 @@ var ray = {
 	offense: 7,
 	defense: 20,
 	image: "assets/images/Ray.png",
+	id: "ray",
 };
 
 var pam = {
@@ -28,6 +31,7 @@ var pam = {
 	offense: 8,
 	defense: 15,
 	image: "assets/images/Pam.png",
+	id: "pam",
 };
 
 var playerSelect = false;
@@ -46,19 +50,24 @@ function checkPlayer(choice){
 	} else {
 		player = pam;
 	};
+	playerSelect = true;
 }
 
 function checkEnemy(choice){
-	if (choice == player){
+	if (choice == player.id){
 		$("#message").html("You can't fight yourself, holmes.");
 	} else if (choice == "lana"){
 		enemy = lana;
+		enemySelect = true;
 	} else if (choice == "archer"){
 		enemy = archer;
+		enemySelect = true;
 	} else if (choice == "ray") {
 		enemy = ray;
+		enemySelect = true;
 	} else {
 		enemy = pam;
+		enemySelect = true;
 	};
 }
 
@@ -72,7 +81,6 @@ $('.character').click(function(event){
 
 	//select character
 	if (playerSelect == false && enemySelect == false){
-		playerSelect = true;
 		
 		checkPlayer(temp);
 		console.log(player);
@@ -84,8 +92,7 @@ $('.character').click(function(event){
 
 	//select enemy
 	} else if (playerSelect == true && enemySelect == false) {
-		enemySelect = true;
-
+		
 		checkEnemy(temp);
 		console.log(enemy);
 
