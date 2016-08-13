@@ -29,8 +29,6 @@ h2, h3 {
 	text-align: center;
 }
 
-
-
 #player-arena {
 	width: 50%;
 	height: 60vh;
@@ -128,7 +126,7 @@ h2, h3 {
 	box-shadow: 10px 5px 5px black;
 }
 
-.character img {
+.character img,.character .image  {
 	height: 15vh;
 	width: auto;
 }
@@ -138,7 +136,7 @@ h2, h3 {
 	height: 8vh;
 	display: block;
 	position: absolute;
-	top: 92vh;
+	top: 91vh;
 	background-color: #217D78;
 }
 
@@ -151,6 +149,8 @@ button {
 	margin: 5px 5px 5px 5px;
 }
 
+
+
 #attack {
 	
 	background-color: #E71D29;
@@ -162,6 +162,11 @@ button {
 	
 }
 
+#attack:active {
+	background-color: #640D13;
+	border-color: #640D13;
+}
+
 #reset {
 	background-color: #F6EBCF;
 	border-color: #F6EBCF;
@@ -169,4 +174,9 @@ button {
 	color: black;
 	float: right;
 	margin-right: 15px;
+}
+
+#reset:active {
+	background-color: #FEB044;
+	border-color: #FEB044;
 }

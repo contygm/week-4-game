@@ -100,7 +100,7 @@ function checkHealth () {
 		console.log(deadEnemies);
 		// change status to dead
 		$("#"+ enemy.id).attr('status','dead');
-		$("#" + enemy.id + " img").attr('src',"assets/images/dead.png");
+		$("#" + enemy.id + " .image").html("<img src='assets/images/dead1.png'>");
 
 		$("#message").html("Defeat another agent for a bonus.");
 			enemy;
@@ -139,7 +139,7 @@ $('.character').click(function(event){
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
-		$("#" + player.id + " img").attr('src',"assets/images/check.png");
+		$("#" + player.id + " .image").html("<img src='assets/images/check.png'>");
 
 	//select enemy
 	} else if (checkStatus(tempStatus)) {
@@ -154,6 +154,7 @@ $('.character').click(function(event){
 		$("#enemy-arena .arena-attack").html("<h3>Attack Power: " + enemy.defense +"</h3>");
 		$("#enemy-arena .arena-img").html("<img src='assets/images/" + enemy.name + ".png'>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
+		$("#" + enemy.id + " .image").empty();
 	} else {
 		$("#message").html("Finish it.");
 	};
@@ -171,6 +172,7 @@ $('#attack').click(function(){
 		enemy.health = enemy.health - player.offense;
 		player.health = player.health - enemy.defense;
 
+		$("#enemy-arena .arena-img, #player-arena .arena-img").toggle("fast").toggle("fast");
 		$("#message").html("<div id='player-message' style='color:lime;'> You: " + player.offense + " Damage Points </div>");  
 		$("#message").append("<div id='enemy-message' style='color:red;'> " + enemy.name + ": " + enemy.defense + " Damage Points </div>");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
