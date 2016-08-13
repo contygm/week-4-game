@@ -95,7 +95,7 @@ function checkHealth () {
 	// detect when enemy dead
 	} 
 
-	if (enemy.health <= 0){
+	else if (enemy.health <= 0){
 		deadEnemies++;
 		console.log(deadEnemies);
 		// change status to dead
