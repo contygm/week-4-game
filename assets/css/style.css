@@ -14,17 +14,26 @@ body {
 
 }
 
-#player-area {
+#player-arena {
 	border-right: 1px solid black;
 	width: 50%;
-	height: 60vh;
+	height: 50vh;
 	float: left;
 }
 
-#opponent-area {
+#opponent-arena {
 	width: 49%;
-	height: 60vh;
+	height: 50vh;
 	float: left;	
+}
+
+#message {
+	clear: both;
+	float: left;
+	width: 100%;
+	height: 10vh;
+	text-align: center;
+	border: 1px solid black;
 }
 
 #waiting-row {

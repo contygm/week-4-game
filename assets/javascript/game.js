@@ -33,13 +33,24 @@ var pam = {
 var playerSelect = false;
 var enemySelect = false;
 var deadEnemies = 0;
+var player;
 
 //select character
 
 $(document).ready(function() {
 
 $('.character').click(function(event){
-	console.log(this);
+	
+	var player = this;
+	console.log(player.name);
+
+	if (playerSelect == false && enemySelect == false){
+
+	} else if (playerSelect == true && enemySelect == false) {
+
+	} else {
+		$("#message").html("Sorry holmes, you have to see it through.");
+	};
 
 });
 
