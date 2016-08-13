@@ -7,7 +7,7 @@ body {
 
 #fight-row {
 	width: 100%;
-	height: 60vh;
+	height: 70vh;
 	border: 2px solid black;
 	display: block;
 	position: relative;
@@ -15,16 +15,32 @@ body {
 }
 
 #player-arena {
-	border-right: 1px solid black;
 	width: 50%;
-	height: 50vh;
+	height: 60vh;
 	float: left;
 }
 
-#opponent-arena {
-	width: 49%;
-	height: 50vh;
+#enemy-arena {
+	width: 50%;
+	height: 60vh;
 	float: left;	
+}
+
+.arena-attack, .arena-health {
+	width: 50%;
+}
+
+.arena-attack {
+	height: 5vh;
+}
+
+.arena-health {
+	height: 5vh;
+}
+
+.arena-img img{
+	max-height: 50vh;
+	width: auto;
 }
 
 #message {
@@ -42,18 +58,18 @@ body {
 	border: 2px solid black;
 	display: block;
 	position: absolute;
-	top: 60vh;
+	top: 70vh;
 	align-content: center;
 
 }
 
 #button-row {
 	width: 100%;
-	height: 15vh;
+	height: 5vh;
 	border: 2px solid black;
 	display: block;
 	position: absolute;
-	top: 85vh;
+	top: 95vh;
 }
 
 .character {
@@ -72,8 +88,9 @@ body {
 	width: auto;
 }
 
+
 button {
 	width: 50%;
 	float: left;
-	height: 15vh;
+	height: 5vh;
 }

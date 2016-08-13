@@ -11,7 +11,7 @@ var archer = {
 	health: 200, 
 	offense: 5,
 	defense: 30,
-	imagw: "assets/images/archer.png",
+	imagw: "assets/images/Archer.png",
 };
 
 var ray = {
@@ -49,7 +49,9 @@ function checkPlayer(choice){
 }
 
 function checkEnemy(choice){
-	if (choice == "lana"){
+	if (choice == player){
+		$("#message").html("You can't fight yourself, holmes.");
+	} else if (choice == "lana"){
 		enemy = lana;
 	} else if (choice == "archer"){
 		enemy = archer;
@@ -60,39 +62,42 @@ function checkEnemy(choice){
 	};
 }
 
-//select character
+
 
 $(document).ready(function() {
 
 $('.character').click(function(event){
 
-	var temp = this.attr('id');
+	var temp = $(this).attr('id');
 
+	//select character
 	if (playerSelect == false && enemySelect == false){
 		playerSelect = true;
-		console.log(playerSelect);
-
 		
 		checkPlayer(temp);
 		console.log(player);
 
+		//move character to player area
+		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
+		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
+		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
+
+	//select enemy
 	} else if (playerSelect == true && enemySelect == false) {
 		enemySelect = true;
-		console.log(enemySelect);
 
 		checkEnemy(temp);
 		console.log(enemy);
 
+		//move enemy
+		$("#enemy-arena .arena-attack").html("<h3>Attack Power: " + enemy.offense +"</h3>");
+		$("#enemy-arena .arena-img").html("<img src='assets/images/" + enemy.name + ".png'>");
+		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 	} else {
 		$("#message").html("Sorry holmes, you have to see it through.");
 	};
 
 });
-
-//move character to player area
-
-//select enemy
-//move enemy 
 
 //attack
 // * loose health for both
@@ -105,8 +110,8 @@ $('.character').click(function(event){
 // detect when loose
 
 $("#reset").on('click', function () {
-	$("player-arena").empty();
-	$("enemy-arena").empty();
+	$("#player-arena").empty();
+	$("#enemy-arena").empty();
 	playerSelect = false;
 	enemySelect = false;
 	deadEnemies = 0;
