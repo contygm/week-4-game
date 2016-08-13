@@ -91,6 +91,12 @@ function checkHealth () {
 	// detect when loose
 	if (player.health <= 0){
 		$("#message").html("You cost us the mission!");
+		$("#" + player.id + " .image").html("<img src='assets/images/dead1.png'>");
+		$("#" + enemy.id + " .image").html("<img src='assets/images/check.png'>");
+
+		$("#player-arena .arena-attack").empty();
+		$("#player-arena .arena-img").empty();
+		$("#player-arena .arena-health").empty();
 	
 	// detect when enemy dead
 	} 
@@ -139,7 +145,7 @@ $('.character').click(function(event){
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
-		$("#" + player.id + " .image").html("<img src='assets/images/check.png'>");
+		$("#" + player.id + " .image").empty();
 
 	//select enemy
 	} else if (checkStatus(tempStatus)) {
