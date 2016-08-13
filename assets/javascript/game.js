@@ -1,7 +1,7 @@
 var lana = {
 	name: "Lana",
-	health: 180, 
-	offense: 6,
+	health: 150, 
+	offense: 20,
 	defense: 25,
 	image: "assets/images/Lana.png",
 	id: "lana",
@@ -9,8 +9,8 @@ var lana = {
 
 var archer = {
 	name: "Archer",
-	health: 200, 
-	offense: 5,
+	health: 120, 
+	offense: 30,
 	defense: 30,
 	image: "assets/images/Archer.png",
 	id: "archer",
@@ -18,8 +18,8 @@ var archer = {
 
 var ray = {
 	name: "Ray",
-	health: 150, 
-	offense: 7,
+	health: 200, 
+	offense: 14,
 	defense: 20,
 	image: "assets/images/Ray.png",
 	id: "ray",
@@ -27,8 +27,8 @@ var ray = {
 
 var pam = {
 	name: "Pam",
-	health: 200, 
-	offense: 10,
+	health: 180, 
+	offense: 15,
 	defense: 15,
 	image: "assets/images/Pam.png",
 	id: "pam",
@@ -80,9 +80,9 @@ function reset() {
 
 function checkStatus(status){
 	if (status === "dead"){
-		return false;
-	} else {
 		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -91,7 +91,6 @@ function checkHealth () {
 	// detect when loose
 	if (player.health <= 0){
 		$("#message").html("You cost us the mission!");
-		setTimeout(reset, 2000);
 	
 	// detect when enemy dead
 	} 
@@ -102,7 +101,7 @@ function checkHealth () {
 		// change status to dead
 		$("#"+ enemy.id).attr('status','dead');
 
-		$("#message").html("You might just get a bonus.");
+		$("#message").html("You might just get a bonus. Pick your next adversary.");
 			enemy;
 
 		enemySelect = false;
@@ -116,7 +115,6 @@ function checkHealth () {
 	//detect when win
 	if (deadEnemies === 3){
 			$("#message").html("Congratulations, you can keep your job.");
-			setTimeout(reset, 2000);
 	} 
 }
 
@@ -144,8 +142,9 @@ $('.character').click(function(event){
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
 	//select enemy
-	} else if (!checkStatus(tempStatus)) {
+	} else if (checkStatus(tempStatus)) {
 		$("#message").html("Pick a new opponent.");
+		return;
 
 	} else if (playerSelect === true && enemySelect === false) {
 		
@@ -174,6 +173,7 @@ $('#attack').click(function(){
 		enemy.health = enemy.health - player.offense;
 		player.health = player.health - enemy.defense;
 
+		$("#message").html("You attacked " + enemy.name + " for " + player.offense + " damage points. " +enemy.name+ " counterattacked for " + enemy.defense + " damage points.");
 		$("#enemy-arena .arena-health").html("<h2>HP: "+ enemy.health +"</h2>");
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
@@ -181,9 +181,10 @@ $('#attack').click(function(){
 		player.offense = player.offense+attackPower;
 
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
+		checkHealth();
 	}
 
-	checkHealth();
+	
 });
 
 
