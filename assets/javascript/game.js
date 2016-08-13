@@ -52,7 +52,7 @@ function checkPlayer(choice){
 		player = pam;
 	};
 	playerSelect = true;
-}
+};
 
 function checkEnemy(choice){
 	if (choice == player.id){
@@ -70,11 +70,45 @@ function checkEnemy(choice){
 		enemy = pam;
 		enemySelect = true;
 	};
-}
+};
+
+
+// reset
+function reset() {
+	playerSelect = false;
+	enemySelect = false;
+	deadEnemies = 0;
+	attackPower;
+	enemy;
+	player;
+
+	$(".arena-attack").empty();
+	$(".arena-img").empty();
+	$(".arena-health").empty();
+	$("#message").empty();
+
+	$("#lana img").attr("src", lana.image);
+	$("#lana p").html("HP: 180");
+	$("#lana").attr('status','alive');
+
+	$("#archer img").attr("src", archer.image);
+	$("#archer p").html("HP: 200");
+	$("#archer").attr('status','alive');
+
+	$("#ray img").attr("src", ray.image);
+	$("#ray p").html("HP: 120");
+	$("#ray").attr('status','alive');
+
+	$("#pam img").attr("src", pam.image);
+	$("#pam p").html("HP: 150");
+	$("#pam").attr('status','alive');
+};
 
 function checkStatus(status){
 	if (status == "dead"){
 		return false;
+	} else {
+		return true;
 	}
 }
 
@@ -82,12 +116,11 @@ function checkHealth () {
 	
 	// detect when loose
 	if (player.health <= 0){
-		$("message").html("You cost us the mission!");
+		$("#message").html("You cost us the mission!");
 		setTimeout(reset, 3000);
 	
 	// detect when enemy dead
 	} else if (enemy.health <= 0){
-		$("message").html("You might just get a bonus.");
 		deadEnemies++;
 		
 		// change status to dead
@@ -95,14 +128,24 @@ function checkHealth () {
 		
 		//detect when win
 		if (deadEnemies == 3){
-			$("message").html("Congratulations, you can keep your job.");
+			$("#message").html("Congratulations, you can keep your job.");
 			setTimeout(reset, 3000);
-		} 
-
+		
 		// choose new enemy
-		enemySelect = false;
+		} else {
+			enemySelect = false;
+			$("#enemy-arena .arena-attack").empty();
+			$("#enemy-arena .arena-img").empty();
+			$("#enemy-arena .arena-health").empty();
+			$("#message").html("You might just get a bonus.");
+		}
+
+		
 	}
 }
+
+
+
 
 $(document).ready(function() {
 
@@ -122,7 +165,6 @@ $('.character').click(function(event){
 		//move character to player area
 		$("#player-arena .arena-attack").html("<h3>Attack Power: " + player.offense +"</h3>");
 		$("#player-arena .arena-img").html("<img src='assets/images/" + player.name + ".png'>");
-		// $("#lana img").attr("src",'assets/images/check.png');
 		$("#player-arena .arena-health").html("<h2>HP: "+ player.health +"</h2>");
 
 	//select enemy
@@ -147,7 +189,7 @@ $('.character').click(function(event){
 
 //attack
 $('#attack').click(function(){
-	if (!playerSelect == true && enemySelect == true){
+	if (playerSelect == false || enemySelect == false){
 		$("#message").html("The dossier said pick a character and enemy before you start.");
 	} else {
 
@@ -165,37 +207,6 @@ $('#attack').click(function(){
 	}
 
 	checkHealth();
-});
-
-
-// reset
-$("#reset").on('click', function () {
-	playerSelect = false;
-	enemySelect = false;
-	deadEnemies = 0;
-	attackPower;
-	enemy;
-	player;
-
-	$("#player-arena").empty();
-	$("#enemy-arena").empty();
-	$("#message").empty();
-
-	$("#lana img").attr("src", lana.image);
-	$("#lana p").html("HP: 180");
-	$("#lana").attr('status','alive');
-
-	$("#archer img").attr("src", archer.image);
-	$("#archer p").html("HP: 200");
-	$("#archer").attr('status','alive');
-
-	$("#ray img").attr("src", ray.image);
-	$("#ray p").html("HP: 120");
-	$("#ray").attr('status','alive');
-
-	$("#pam img").attr("src", pam.image);
-	$("#pam p").html("HP: 150");
-	$("#pam").attr('status','alive');
 });
 
 
