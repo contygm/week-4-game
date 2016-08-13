@@ -75,37 +75,11 @@ function checkEnemy(choice){
 
 // reset
 function reset() {
-	playerSelect = false;
-	enemySelect = false;
-	deadEnemies = 0;
-	attackPower;
-	enemy;
-	player;
-
-	$(".arena-attack").empty();
-	$(".arena-img").empty();
-	$(".arena-health").empty();
-	$("#message").empty();
-
-	$("#lana img").attr("src", lana.image);
-	$("#lana p").html("HP: 180");
-	$("#lana").attr('status','alive');
-
-	$("#archer img").attr("src", archer.image);
-	$("#archer p").html("HP: 200");
-	$("#archer").attr('status','alive');
-
-	$("#ray img").attr("src", ray.image);
-	$("#ray p").html("HP: 120");
-	$("#ray").attr('status','alive');
-
-	$("#pam img").attr("src", pam.image);
-	$("#pam p").html("HP: 150");
-	$("#pam").attr('status','alive');
+	location.reload();
 };
 
 function checkStatus(status){
-	if (status == "dead"){
+	if (status === "dead"){
 		return false;
 	} else {
 		return true;
@@ -117,31 +91,33 @@ function checkHealth () {
 	// detect when loose
 	if (player.health <= 0){
 		$("#message").html("You cost us the mission!");
-		setTimeout(reset, 3000);
+		setTimeout(reset, 2000);
 	
 	// detect when enemy dead
-	} else if (enemy.health <= 0){
+	} 
+
+	if (enemy.health <= 0){
 		deadEnemies++;
-		
+		console.log(deadEnemies);
 		// change status to dead
 		$("#"+ enemy.id).attr('status','dead');
-		
-		//detect when win
-		if (deadEnemies == 3){
-			$("#message").html("Congratulations, you can keep your job.");
-			setTimeout(reset, 3000);
-		
-		// choose new enemy
-		} else {
-			enemySelect = false;
-			$("#enemy-arena .arena-attack").empty();
-			$("#enemy-arena .arena-img").empty();
-			$("#enemy-arena .arena-health").empty();
-			$("#message").html("You might just get a bonus.");
-		}
 
-		
-	}
+		$("#message").html("You might just get a bonus.");
+			enemy;
+
+		enemySelect = false;
+		$("#enemy-arena .arena-attack").empty();
+		$("#enemy-arena .arena-img").empty();
+		$("#enemy-arena .arena-health").empty();
+
+
+	} 
+	
+	//detect when win
+	if (deadEnemies === 3){
+			$("#message").html("Congratulations, you can keep your job.");
+			setTimeout(reset, 2000);
+	} 
 }
 
 
@@ -155,7 +131,7 @@ $('.character').click(function(event){
 	var tempStatus = $(this).attr('status')
 
 	//select character
-	if (playerSelect == false && enemySelect == false){
+	if (playerSelect === false && enemySelect === false){
 		
 		checkPlayer(tempName);
 		console.log(player);
@@ -169,11 +145,12 @@ $('.character').click(function(event){
 
 	//select enemy
 	} else if (!checkStatus(tempStatus)) {
-		$("message").html("Pick a new opponent.");
+		$("#message").html("Pick a new opponent.");
 
-	} else if (playerSelect == true && enemySelect == false) {
+	} else if (playerSelect === true && enemySelect === false) {
 		
 		checkEnemy(tempName);
+		$("#message").empty();
 		console.log(enemy);
 
 		//move enemy
@@ -189,9 +166,9 @@ $('.character').click(function(event){
 
 //attack
 $('#attack').click(function(){
-	if (playerSelect == false || enemySelect == false){
+	if (playerSelect === false || enemySelect === false){
 		$("#message").html("The dossier said pick a character and enemy before you start.");
-	} else {
+	} else if (player.health > 0 && enemy.health > 0) {
 
 		// * loose health for both
 		enemy.health = enemy.health - player.offense;
@@ -210,7 +187,7 @@ $('#attack').click(function(){
 });
 
 
-
+$('#reset').click(reset);
 
 });
 
